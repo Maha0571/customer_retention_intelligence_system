@@ -25,13 +25,15 @@ tenure = st.slider("Tenure (Months)", 0, 72, 12)
 monthly = st.number_input(
     "Monthly Charges",
     min_value=0.0,
-    value=70.0
+    value=70.0,
+    step=0.50
 )
 
 total = st.number_input(
     "Total Charges",
     min_value=0.0,
-    value=800.0
+    value=800.0,
+    step=10.0
 )
 
 # -----------------------------
@@ -70,14 +72,21 @@ if st.button("Predict"):
     # -----------------------------
     st.subheader("Recommendation")
 
-    if probability > 0.80:
-        st.warning("Offer 20% Discount")
-        st.warning("Assign Customer Support")
-        st.warning("Provide Loyalty Rewards")
+if probability > 0.80:
+    st.error("High Churn Risk")
+    st.write("The customer is very likely to leave the company.")
+    st.warning("Offer a special discount.")
+    st.warning("Assign dedicated customer support.")
+    st.warning("Provide loyalty rewards to retain the customer.")
 
-    elif probability > 0.50:
-        st.info("Offer Upgrade Plan")
-        st.info("Provide Free Tech Support")
+elif probability > 0.50:
+    st.warning("Medium Churn Risk")
+    st.write("The customer has a moderate chance of leaving the company.")
+    st.info("Offer an upgrade plan.")
+    st.info("Provide free technical support.")
+    st.info("Engage with the customer through follow-up offers.")
 
-    else:
-        st.success("Customer Retention Risk is Low")
+else:
+    st.success("Low Churn Risk")
+    st.write("The customer is likely to stay with the company.")
+    st.success("No immediate retention action is required.")
